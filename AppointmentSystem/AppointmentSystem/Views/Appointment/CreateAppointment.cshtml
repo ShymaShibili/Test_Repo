@@ -1,0 +1,113 @@
+﻿@model AppointmentSystem.Models.Appointments
+    @{
+        Layout = null;
+    }
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+    <div id="bodyContentBox">
+        <div class="main-container">
+            <div class="container-fluid">
+                <main class="">
+                    <h1 class="bd-title" id="content">Create Appointment</h1>
+                    <form id="LoginForm" method="POST" class="form-group border-top border-light">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="row">
+
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3"><label for="Name">Name</label></div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" name="Name" value="" />
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3"><label for="Email">Email</label></div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" name="Email" value="" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3"><label for="AppointmentTime">Appointment Time</label></div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" name="AppointmentTime" class="datepicker" value="" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3"><label for="AppointmentTitle">Title</label></div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" name="AppointmentTitle" value="" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 buttonGroup">
+                                    <div class="row border-top border-light">
+                                        <div class="col-sm-12">
+                                            <div style="margin-top:5px">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+        <div style="clear: both; height: 50px"></div>
+    </div>
+    <style>
+        .buttonGroup {
+            margin-top: 10px;
+            padding-top: 5px;
+        }
+
+        .form-group .row {
+            margin-top: 5px
+        }
+
+        form {
+            padding-top: 10px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'DD/MM/YYYY hh:mmA',
+                minDate: new Date(),
+                defaultDate: new Date(),
+                daysOfWeekDisabled:[0,6]
+            });
+
+        });
+
+    </script>
+
+
+
+
+
+

@@ -1,0 +1,167 @@
+﻿@model List<AppointmentSystem.Models.Appointments>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Appointments</h2>
+<a class="ui-button amodal" data-remote="false" data-toggle="modal" data-target="#myModalAdd" data-val="abc" id="btnAdd">Create Appointment</a>
+@*<button type="button" class="btn btn-info amodal" data-remote="false" data-toggle="modal" data-target="#myModalAdd">Create Appointment</button>*@
+
+@*Create Appointment modal*@
+<div id="myModalAdd" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="addTitle">Create Appointment</span></h4>
+
+            </div>
+            <div class="modal-body">
+
+                <form id="appointmentForm" method="POST" class="form-group border-top border-light">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="row">
+
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-3"><label for="Name">Name</label></div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" id="Name" name="Name" value="" />
+
+                                            @*@Html.TextBoxFor(x => x.Name, new { @class = "form-control col-sm-6" })*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-3"><label for="Email">Email</label></div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" id="Email" name="Email" value="" />
+                                            @*@Html.TextBoxFor(x => x.Email, new { @class = "form-control col-sm-6" })*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-3"><label for="AppointmentTime">Appointment Time</label></div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" id="AppointmentTime" name="AppointmentTime" class="datepicker" value="" />
+                                            @*@Html.TextBoxFor(x => x.AppointmentTime, new { @class = "form-control col-sm-6" })*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-3"><label for="AppointmentTitle">Title</label></div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" id="AppointmentTitle" name="AppointmentTitle" value="" />
+                                            @*@Html.TextBoxFor(x => x.AppointmentTitle, new { @class = "form-control col-sm-6" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 buttonGroup">
+                                <div class="row border-top border-light">
+                                    <div class="col-sm-12">
+                                        <div style="margin-top:5px">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                @*<p id="pDetails"></p>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Appointment Modal*@
+
+<div id="calender"></div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                <input type="hidden" id="appointId" value="" />
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" id="btnDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.print.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.css"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/Appointments/AppointmentCalender.js"></script>
+    @*<script src="~/Scripts/Appointments/AppointmentFormValidation.js"></script>*@
+    <script>
+        $(Appointments.Init);
+        //$(Validation.Init);
+    </script>
+
+    <script>
+        $('.aModal').on('click', function (e) {
+            e.preventDefault();
+            $('#myModalAdd').modal('show').find('.modal-content').load($(this).attr('href'));
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'DD/MM/YYYY hh:mmA',
+                minDate: new Date(),
+                defaultDate: new Date(),
+                daysOfWeekDisabled: [0, 6],
+                //disabledTimeIntervals: [[moment().hour(0), moment().hour(9).minutes(00)], [moment().hour(18).minutes(30), moment().hour(24)]],
+            });
+
+        });
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
